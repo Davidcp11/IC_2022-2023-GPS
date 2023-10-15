@@ -1,0 +1,175 @@
+from zipfile import ZipFile
+import gzip
+import shutil
+
+
+# Extrair arquivo zip, gzip
+def descompact(name, type_arq="zip"):
+    if type_arq == "zip":
+        try:
+            with ZipFile(f'dados_globais_gz/station_{name}.zip', 'r') as zip:
+                zip.extractall('Arquivos_Descompactados')
+                print('Executado')
+        except:
+            print(f'{name}  ***** deu ruim')
+    elif type_arq == "gz":
+        try:
+            with gzip.open(f'dados_globais_gz/station_{name}.gz', 'rb') as entrada:
+                with open(f'dados_globais/Station_{name}', 'wb') as saida:
+                    shutil.copyfileobj(entrada, saida)
+                    print('Executado')
+        except:
+            print(f'{name}  ***** deu ruim')
+
+
+'''stations = [
+    'alar',
+    'alma',
+    'amco',
+    'amcr',
+    'amha',
+    'ampt',
+    'amte',
+    'amtg',
+    'amua',
+    'aplj',
+    'apma',
+    'aps1',
+    'babj',
+    'babr',
+    'bail',
+    'bait',
+    'bapa',
+    'batf',
+    'bavc',
+    'bele',
+    'bepa',
+    'braz',
+    'brft',
+    'ceeu',
+    'cefe',
+    'ceft',
+    'cesb',
+    'chpi',
+    'coru',
+    'crat',
+    'cruz',
+    'cuib',
+    'each',
+    'eesc',
+    'esnv',
+    'gogy',
+    'goja',
+    'gour',
+    'gva1',
+    'ifsc',
+    'ilha',
+    'imbt',
+    'itai',
+    'maba',
+    'mabb',
+    'mabs',
+    'mgbh',
+    'mgin',
+    'mgjf',
+    'mgjp',
+    'mgla',
+    'mgmc',
+    'mgmt',
+    'mgrp',
+    'mgto',
+    'mgub',
+    'mgv1',
+    'msaq',
+    'msbl',
+    'msdr',
+    'msgr',
+    'msjr',
+    'msmj',
+    'msmn',
+    'msnv',
+    'mspm',
+    'mspp',
+    'mtca',
+    'mtcn',
+    'mtga',
+    'mtji',
+    'mtla',
+    'mtnx',
+    'mtsc',
+    'naus',
+    'neia',
+    'onrj',
+    'paar',
+    'pait',
+    'pasm',
+    'pbcg',
+    'pbjp',
+    'pbpt',
+    'peaf',
+    'pepe',
+    'perc',
+    'picr',
+    'pifl',
+    'pisr',
+    'pitn',
+    'poal',
+    'poli',
+    'pove',
+    'ppte',
+    'prgu',
+    'prma',
+    'prur',
+    'riob',
+    'rjcg',
+    'rjni',
+    'rjva',
+    'rnmo',
+    'rnna',
+    'rnpf',
+    'roji',
+    'rosa',
+    'rsal',
+    'rscl',
+    'rspe',
+    'rspf',
+    'rssl',
+    'saga',
+    'salu',
+    'savo',
+    'scaq',
+    'scca',
+    'scch',
+    'scfl',
+    'scla',
+    'seaj',
+    'sjrp',
+    'sjsp',
+    'smar',
+    'spar',
+    'spbo',
+    'spbp',
+    'spc1',
+    'spdr',
+    'spfe',
+    'spfr',
+    'spja',
+    'spli',
+    'spor',
+    'sps1',
+    'sptu',
+    'ssa1',
+    'togu',
+    'topl',
+    'uba1',
+    'ube1',
+    'ufpr',
+    'vico'
+]'''
+stations = ["sch2", "hnpt", "rdsd", "falk"]
+types = ["22d", "22n", "22g", "22m", "22l"]
+for i in range(1, 32):
+    numb = ('%03d' % i)
+    for sta in stations:
+        for type in types:
+            descompact(f'{sta}{numb}1.{type}', type_arq="gz")
